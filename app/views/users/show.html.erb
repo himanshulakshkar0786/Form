@@ -1,0 +1,43 @@
+<%= image_tag @user.image.url(:medium) %>
+
+<p>
+  <b>Name:</b>
+  <%= @user.name %>
+</p>
+
+<p>
+  <b>Date of birth:</b>
+  <%= @user.date_of_birth %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%= @user.country.name %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @user.state.name %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @user.city.name %>
+</p>
+
+<p>
+  <b>Contact:</b>
+  <%= @user.contact %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
+
+<p>
+  <b>Username:</b>
+  <%= @user.username %>
+</p>
+
+<%= link_to 'Back', root_path %>
