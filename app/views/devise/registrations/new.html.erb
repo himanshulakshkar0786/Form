@@ -10,7 +10,7 @@
 
   <div class="field">
     <%= f.label :date_of_birth %><br />
-    <%= f.date_select :date_of_birth, autofocus: true %>
+    <%= f.date_select :date_of_birth, start_year: 1980, end_year: 2020, include_blank: true, autofocus: true %>
   </div>
 
   <div class="field">

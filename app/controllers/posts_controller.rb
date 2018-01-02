@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
 
 	before_action :authenticate_user!, except: [:index, :show]
-	before_action :find_post, except: [:new, :index, :create]
-	before_action :correct_user, only: [:edit, :update, :destroy]
+	before_action :load_resources, except: [:new, :index, :create]
+	before_action :ensure_current_user, only: [:edit, :update, :destroy]
 
 	def new
 		@post = Post.new
@@ -20,6 +20,7 @@ class PostsController < ApplicationController
 		@post = current_user.posts.new(post_params)
 		if @post.save
 			redirect_to root_path
+			flash[:notice] = "Post created!"
 		else
 			render 'new'
 		end
@@ -34,6 +35,7 @@ class PostsController < ApplicationController
 	def update
 		if @post.update(post_params)
 			redirect_to @post
+			flash[:notice] = "Post updated!"
 		else
 			render 'edit'
 		end
@@ -41,16 +43,29 @@ class PostsController < ApplicationController
 
 	def destroy
 		@post.destroy
-		redirect_to posts_path
+		redirect_to root_path
+		flash[:notice] = "Post deleted!"
+	end
+
+	def upvote
+  		@post.upvote_by current_user
+  		redirect_to root_path
+  		flash[:notice] = "Post liked!"
+	end  
+
+	def downvote
+  		@post.downvote_by current_user
+  		redirect_to root_path
+  		flash[:notice] = "Post disliked!"
 	end
 
 	private
 
-	def find_post
+	def load_resources
 		@post = Post.find(params[:id])
 	end
 
-    def correct_user
+    def ensure_current_user
     	if current_user.id != @post.user_id
     		redirect_to root_path
     		flash[:notice] = "You are not authorized to edit and delete this post."

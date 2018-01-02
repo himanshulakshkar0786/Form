@@ -1,13 +1,14 @@
 class CommentsController < ApplicationController
 
 	before_action :authenticate_user!, except: :show
-	before_action :find_comment, only: [:edit, :update, :destroy]
+	before_action :load_resource, only: [:edit, :update, :destroy]
+	before_action :ensure_current_user, only: [:edit, :update, :destroy]
 
 	def create
 		@post = Post.find(params[:post_id])
-		@comment= @post.comments.create(comment_params)
+		@comment= @post.comments.create(comment_params.merge(user: current_user))
 		redirect_to post_path(@post)
-		flash[:success] = "Comment created!"
+		#flash[:success] = "Comment created!"
 	end
 
 	def edit
@@ -16,35 +17,36 @@ class CommentsController < ApplicationController
 	def update
 		if @comment.update(comment_params)
       		redirect_to post_path(@post)
+      		flash[:notice] = "Comment updated!"
     	else
       		render 'edit'
-    	end
+		end
 	end
 
 	def destroy	
-		#@comment.destroy
-		#redirect_to post_path(@post)
-		#flash[:success] = "Comment deleted!"
-
-		#if @comment.user != current_user
-		if @comment.post.user_id != current_user.id
-			redirect_to post_path(@post)
-			flash[:success] = "You are not authorized to delete this comment."
-		else
-			@comment.destroy
-			redirect_to post_path(@post)
+		if @comment.destroy
 			flash[:success] = "Comment deleted!"
+		else
+			flash[:error] = "comment can not be deleted!"
 		end
+			redirect_to post_path(@post)
 	end
 
 	private
 
-	def find_comment
+	def load_resource
 		@post = Post.find(params[:post_id])
 		@comment = @post.comments.find(params[:id])
 	end
 
+	def ensure_current_user
+		unless @comment.user == current_user
+			flash[:error] = "You are not authorized to edit and delete this comment!"
+			redirect_to post_path(@post)
+		end
+	end	
+
 	def comment_params
-		params.require(:comment).permit(:description, :user_id)
+		params.require(:comment).permit(:description)
 	end
 end

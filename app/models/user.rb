@@ -4,18 +4,21 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, authentication_keys: [:login]
 
-    attr_accessor :login
-
   has_attached_file :image, styles: { large: "600*600>", medium: "300*300>"}
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+
+  acts_as_voter
 
 	has_many :posts
 	has_many :comments, through: :posts
   belongs_to :country
   belongs_to :state
   belongs_to :city
+  
 	validates :username, :name, presence: true
 	validates :username, uniqueness: {case_sensitive: false}
+
+  attr_accessor :login
 
 	def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
