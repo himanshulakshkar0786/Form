@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   acts_as_voter
 
-	has_many :posts
+	has_many :posts, dependent: :destroy
 	has_many :comments, through: :posts
   belongs_to :country
   belongs_to :state

@@ -1,34 +1,61 @@
 <br>
 <%= form_tag(root_path, method: "get") do %>
   <%= text_field_tag(:term, params[:term]) %>
+  <%= select_tag(:category_id, options_for_select([['Educational', 1], ['Political', 2], ['Entertainment', 3]]), include_blank: true) %>
   <%= submit_tag("Search", name: nil) %>
 <% end %>
 
-<h1>List of posts</h1>
-<%= link_to 'Create post', new_post_path %>
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
+<h1>List of Posts</h1>
+<h4><%= link_to 'Create post', new_post_path, class:'label label-default'%></h4>
+<table class = "table table-hover">
+  <tr class = "info">
+    <th style = "text-align:left;">Title</th>
+    <th style = "text-align:left;">Author</th>
   </tr>
 
-  <% @posts.each do |post| %>
-    <tr>
+  <% @posts.order(created_at: :desc).each do |post| %>
+    <tr class = "warning">
       <td><%= post.title %></td>
-      <td><%= post.description %></td>
-      <td><%= link_to 'Show', post_path(post) %></td>
-      <td><%= link_to 'Edit', edit_post_path(post) %></td>
+      <td><%= post.user.name %>
+      <td width="10"><%= link_to 'Show', post_path(post), class:'label label-primary' %></td>
+      <td width="10"><%= link_to 'Edit', edit_post_path(post), class:'label label-danger' %></td>
       <td><%= link_to 'Destroy', post_path(post),
               method: :delete,
-              data: { confirm: 'Are you sure?' } %></td>
+              data: { confirm: 'Are you sure?' }, class:'label label-warning' %></td>
 
-      <td><%= link_to like_post_path(post), method: :put do %>
-        Like <%= post.get_upvotes.size %>
-      <% end %></td>
+  <% if current_user.present? %>
 
-      <td><%= link_to dislike_post_path(post), method: :put do %>
-        Dislike <%= post.get_downvotes.size %>
-      <% end %>
+    <% if current_user.voted_up_on? post %>
+      <td><%= link_to like_post_path(post, url: "dashboard"), method: :put do %>
+        <class style = "color:green;"><span class="glyphicon glyphicon-thumbs-up"></span></class> <% end %>
+        <%= post.get_upvotes.size %></td>
+    <% else %>
+      <td><%= link_to like_post_path(post, url: "dashboard"), method: :put do %>
+        <class style = "color:black;"><span class="glyphicon glyphicon-thumbs-up"></span></class> <% end %>
+        <%= post.get_upvotes.size %></td>
+    <% end %>
+
+    <% if current_user.voted_down_on? post %>
+      <td><%= link_to dislike_post_path(post, url: "dashboard"), method: :put do %>
+        <class style = "color:green;"><span class="glyphicon glyphicon-thumbs-down"></span></class> <% end %>
+        <%= post.get_downvotes.size %></td>
+    <% else %>
+      <td><%= link_to dislike_post_path(post, url: "dashboard"), method: :put do %>
+        <class style = "color:black;"><span class="glyphicon glyphicon-thumbs-down"></span></class> <% end %>
+        <%= post.get_downvotes.size %></td>
+    <% end %>
+
+  <% else %>
+
+    <td><%= link_to like_post_path(post), method: :put do %>
+        <span class="glyphicon glyphicon-thumbs-up"></span><% end %>
+        <%= post.get_upvotes.size %></td>
+
+    <td><%= link_to dislike_post_path(post), method: :put do %>
+        <span class="glyphicon glyphicon-thumbs-down"></span><% end %>
+        <%= post.get_downvotes.size %></td>
+
+  <% end %>
 
     </tr>
   <% end %>

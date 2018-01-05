@@ -4,15 +4,18 @@ Rails.application.routes.draw do
 
 	root 'posts#index'
 
-	resources :users, only: :show
-
-	resources :posts, except: :index do
-		resources :comments
-		
+	resources :users, only: :show do
 		member do
-    		put "like", to: "posts#upvote"
-    		put "dislike", to: "posts#downvote"
+    		get 'posts'
   		end
 	end
 
+	resources :posts do
+		resources :comments
+		
+		member do
+    		put "like", to: "like_dislikes#like"
+    		put "dislike", to: "like_dislikes#dislike"
+  		end
+	end
 end

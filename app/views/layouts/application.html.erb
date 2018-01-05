@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <title>Form</title>
     <%= csrf_meta_tags %>
 
@@ -8,22 +9,27 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body styles = "padding:5px;">
+  <body style = "padding:10px;">
 
-  <div id="user_nav">
+
+
+  <div style = "text-align: right;">
+
     <% if user_signed_in? %>
-      Logged in as <strong><%= current_user.email %></strong>.
-      <%= link_to 'Edit profile', edit_user_registration_path %> |
-      <%= link_to "View Profile", current_user %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+
+      Logged in as <strong><%= current_user.email %></strong>
+      <%= link_to 'Edit profile', edit_user_registration_path,  class:'label label-default' %> |
+      <%= link_to "View Profile", current_user, class:'label label-success' %> |
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class:'label label-danger' %>
     <% else %>
-      <%= link_to "Sign up", new_user_registration_path %> |
-      <%= link_to "Login", new_user_session_path %>
+      <%= link_to "Sign up", new_user_registration_path, class:'label label-default' %> |
+      <%= link_to "Login", new_user_session_path, class:'label label-danger' %>
     <% end %>
+    <h3 style = "text-align: left;"><%= link_to 'Home', root_path, class: "label label-primary" %></h3>
   </div>
 
   <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg, id: "flash_#{name}" %>
+    <%= content_tag :div, msg, class: "flash_#{name}" %>
   <% end %>
 
   <%= yield %>

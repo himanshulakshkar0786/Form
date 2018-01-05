@@ -4,11 +4,21 @@ class CommentsController < ApplicationController
 	before_action :load_resource, only: [:edit, :update, :destroy]
 	before_action :ensure_current_user, only: [:edit, :update, :destroy]
 
+	def new
+		@post = Post.find(params[:post_id])
+		@comment = @post.comments.new
+	end
+
 	def create
 		@post = Post.find(params[:post_id])
 		@comment= @post.comments.create(comment_params.merge(user: current_user))
-		redirect_to post_path(@post)
-		#flash[:success] = "Comment created!"
+		if @comment.save
+			redirect_to post_path(@post)
+			flash[:success] = "Comment created!"
+		else
+			redirect_to new_post_comment_path(@post)
+			flash[:error] = @comment.errors.full_messages.join(",")
+		end
 	end
 
 	def edit
@@ -17,7 +27,7 @@ class CommentsController < ApplicationController
 	def update
 		if @comment.update(comment_params)
       		redirect_to post_path(@post)
-      		flash[:notice] = "Comment updated!"
+      		flash[:success] = "Comment updated!"
     	else
       		render 'edit'
 		end
