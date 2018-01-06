@@ -1,15 +1,17 @@
-<h1> My posts </h1>
+<h1><%= @user.name %>'s posts </h1>
 
 <table class = "table table-hover">
   <tr class = "info">
     <th>Title</th>
     <th>Description</th>
+    <th>Category</th>
   </tr>
 
   <% @user.posts.order(created_at: :desc).each do |post| %>
     <tr class = "warning">
       <td><%= post.title %></td>
       <td><%= post.description %></td>
+      <td><%= post.category.name %></td>
       <td width="10"><%= link_to 'Show', post_path(post), class:'label label-primary' %></td>
       <td width="10"><%= link_to 'Edit', edit_post_path(post), class:'label label-danger' %></td>
       <td><%= link_to 'Destroy', post_path(post),
@@ -20,7 +22,7 @@
 
     <% if current_user.voted_up_on? post %>
       <td><%= link_to like_post_path(post, url: "my_posts"), method: :put do %>
-        <class style = "color:green;"><span class="glyphicon glyphicon-thumbs-up"></span></class> <% end %>
+        <class style = "color:blue;"><span class="glyphicon glyphicon-thumbs-up"></span></class> <% end %>
         <%= post.get_upvotes.size %></td>
     <% else %>
       <td><%= link_to like_post_path(post, url: "my_posts"), method: :put do %>
@@ -30,7 +32,7 @@
 
     <% if current_user.voted_down_on? post %>
       <td><%= link_to dislike_post_path(post, url: "my_posts"), method: :put do %>
-        <class style = "color:green;"><span class="glyphicon glyphicon-thumbs-down"></span></class> <% end %>
+        <class style = "color:blue;"><span class="glyphicon glyphicon-thumbs-down"></span></class> <% end %>
         <%= post.get_downvotes.size %></td>
     <% else %>
       <td><%= link_to dislike_post_path(post, url: "my_posts"), method: :put do %>

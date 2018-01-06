@@ -3,7 +3,9 @@
   <%= comment.description %>
 </p>
 
-<%= link_to "Edit", edit_post_comment_path(@post, comment), class:'label label-danger' %> |
+<%= image_tag comment.image.url(:medium) %>
+
+<br><br><%= link_to "Edit", edit_post_comment_path(@post, comment), class:'label label-danger' %> |
 
 <%= link_to "Destroy", [@post, comment], method: :delete, 
 	data: { confirm: 'Are you sure?' }, class:'label label-warning' %>
