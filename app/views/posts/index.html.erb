@@ -1,4 +1,4 @@
-<%= form_tag(root_path, method: "get") do %>
+<%= form_tag(root_path, method: "get", remote: true) do %>
   <%= text_field_tag(:term, params[:term]) %>
   <%= select_tag(:category_id, options_for_select([['Educational', 1], ['Political', 2], ['Entertainment', 3]]), prompt: 'Choose category') %>
   <button type="submit", class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search" aria-hidden="true">Search</span></button>
@@ -7,7 +7,7 @@
 <h1>List of Posts</h1>
 <h4><%= link_to 'Create post', new_post_path, class:'label label-default'%></h4>
 <b><h4>Total records:- <%= Post.all.count %></h4></b>
-<table class = "table table-hover">
+<table class = "table table-hover", id = "posts">
   <tr class = "info">
     <th>Title</th>
     <th>Author</th>
