@@ -7,7 +7,7 @@ class Post < ApplicationRecord
 	
 	belongs_to :user
 	belongs_to :category
-	has_many :comments, dependent: :destroy
+	has_many :comments, as: :commentable, dependent: :destroy
 	
 	validates :title, :description, presence: true
 	validates :title, length: {maximum: 20}

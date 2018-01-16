@@ -18,4 +18,8 @@ Rails.application.routes.draw do
     		put "dislike", to: "like_dislikes#dislike"
   		end
 	end
+
+	resources :comments do
+    	resources :comments
+  	end
 end

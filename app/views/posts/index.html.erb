@@ -1,16 +1,20 @@
 <%= form_tag(root_path, method: "get") do %>
   <%= text_field_tag(:term, params[:term]) %>
-  <%= select_tag(:category_id, options_for_select([['Educational', 1], ['Political', 2], ['Entertainment', 3]]), include_blank: true) %>
-  <%= submit_tag("Search", name: nil) %>
+  <%= select_tag(:category_id, options_for_select([['Educational', 1], ['Political', 2], ['Entertainment', 3]]), prompt: 'Choose category') %>
+  <button type="submit", class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search" aria-hidden="true">Search</span></button>
 <% end %>
 
 <h1>List of Posts</h1>
 <h4><%= link_to 'Create post', new_post_path, class:'label label-default'%></h4>
+<b><h4>Total records:- <%= Post.all.count %></h4></b>
 <table class = "table table-hover">
   <tr class = "info">
-    <th style = "text-align:left;">Title</th>
-    <th style = "text-align:left;">Author</th>
-    <th style = "text-align:left;">Category</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Category</th>
+    <th colspan="3">Actions</th>
+    <th>Likes</th>
+    <th>Dislikes</th>
   </tr>
 
   <% @posts.order(created_at: :desc).each do |post| %>
