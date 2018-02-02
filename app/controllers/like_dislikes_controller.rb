@@ -77,4 +77,33 @@ class LikeDislikesController < ApplicationController
       end
     end
   end
+
+  def upvote
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
+
+    if current_user.voted_up_on? @comment      
+        redirect_to post_path(@post)
+        flash[:success] = "Comment already liked!"
+    else
+        @comment.upvote_by current_user
+        redirect_to post_path(@post)
+        flash[:success] = "Comment liked!"
+    end
+  end
+
+  def downvote
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
+
+    if current_user.voted_down_on? @comment    
+      redirect_to post_path(@post)
+      flash[:success] = "Comment already disliked!"
+    else
+      @comment.downvote_by current_user
+      redirect_to post_path(@post)
+      flash[:success] = "Comment disliked!"
+    end
+  end
+
 end

@@ -12,6 +12,40 @@
   <%= image_tag comment.image.url(:medium) %>
 <% else %>
 
+<% end %><br>
+
+<% if current_user.present? %>
+
+  <% if current_user.voted_up_on? comment %>
+     <%= link_to upvote_post_comment_path(@post, comment), method: :put do %>
+        <span class="glyphicon glyphicon-thumbs-up blue"></span></class> <% end %>
+        <%= comment.get_upvotes.size %>
+  <% else %>
+     <%= link_to upvote_post_comment_path(@post, comment), method: :put do %>
+        <span class="glyphicon glyphicon-thumbs-up black"></span></class> <% end %>
+        <%= comment.get_upvotes.size %>
+  <% end %>
+
+  <% if current_user.voted_down_on? comment %>
+     <%= link_to downvote_post_comment_path(@post, comment), method: :put do %>
+        <span class="glyphicon glyphicon-thumbs-down blue"></span></class> <% end %>
+        <%= comment.get_downvotes.size %>
+  <% else %>
+     <%= link_to downvote_post_comment_path(@post, comment), method: :put do %>
+        <span class="glyphicon glyphicon-thumbs-down black"></span></class> <% end %>
+        <%= comment.get_downvotes.size %>
+  <% end %>
+
+<% else %>
+
+  <%= link_to upvote_post_comment_path(@post, comment), method: :put do %>
+      <span class="glyphicon glyphicon-thumbs-up"></span><% end %>
+      <%= comment.get_upvotes.size %>
+
+  <%= link_to downvote_post_comment_path(@post, comment), method: :put do %>
+      <span class="glyphicon glyphicon-thumbs-down"></span><% end %>
+      <%= comment.get_downvotes.size %>
+
 <% end %>
 
 <% if comment.commentable_type == "Post" %>
