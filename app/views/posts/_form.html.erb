@@ -10,12 +10,12 @@
 
 <p>
 	<%= f.label :Title %><br>
-	<%= f.text_field :title, autofocus: true, required: true %>
+	<%= f.text_field :title, autofocus: true, maxlength: 20, required: true %>
 </p>
 
 <p>
 	<%= f.label :Description %><br>
-	<%= f.text_area :description, size: "30x5", required: true %>
+	<%= f.text_area :description, size: "30x5", maxlength: 80, required: true %>
 </p>
 
 <p>

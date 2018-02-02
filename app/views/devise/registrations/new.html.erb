@@ -16,7 +16,7 @@
 
   <p>
     <%= f.label :Gender %>
-    <%= f.radio_button :gender, "male" %>
+    <%= f.radio_button :gender, "male", required: true %>
     <%= f.label :gender, value: "male" %>
     <%= f.radio_button :gender, "female" %>
     <%= f.label :gender, value: "female" %>
@@ -40,7 +40,7 @@
 
   <p>
     <%= f.label :contact %><br />
-    <%= f.text_field :contact, required: true %>
+    <%= f.text_field :contact, size:20, minlength: 10, maxlength: 10, required: true %>
   </p>
 
   <p>

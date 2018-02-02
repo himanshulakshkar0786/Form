@@ -70,17 +70,19 @@
 
 <% if current_user.present? %>
     <%= form_for [comment, Comment.new], remote: true do |f| %>
-          <%= f.text_area :description, placeholder: "Add a reply...", required: true %><br/>
+          <%= f.text_area :description, placeholder: "Add a reply...", required: true, maxlength: 50 %><br/>
           <%= hidden_field_tag "comment[post_id]", "#{@post.id}" %>
-          <%= f.submit "Reply" %>
+          <%= f.file_field :image %>
+          <%= f.submit "Reply", class:"btn btn-xs btn-primary" %>
     <% end %>
 <% else %>
     <%= form_for [comment, Comment.new] do |f| %>
           <%= f.text_area :description, placeholder: "Add a reply..." %><br/>
           <%= hidden_field_tag "comment[post_id]", "#{@post.id}" %>
-          <%= f.submit "Reply" %>
+          <%= f.file_field :image %>
+          <%= f.submit "Reply", class:"btn btn-xs btn-primary" %>
     <% end %>
-<% end %>
+<% end %><br>
 
 <ul>
       <%= render comment.comments.order(created_at: :desc) %>

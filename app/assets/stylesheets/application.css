@@ -53,3 +53,28 @@ hr {
  border-top: 1px solid #aaaaaa;
  border-bottom: 1px solid #ffffff;
 }
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    right: 0;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 60px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#bg {
+  background-image: url("/system/comments/images/000/000/003/milky-way-2695569_960_720.jpg?1517575686");
+}

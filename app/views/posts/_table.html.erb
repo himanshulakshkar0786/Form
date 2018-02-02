@@ -15,12 +15,12 @@
       <td><%=  link_to post.user.name, user_path(post.user_id) %></td>
       <td><%= post.category.name %></td>
       <td width="10"><%= link_to 'Show', post_path(post), class:'label label-primary' %></td>
-      <td width="10"><%= link_to 'Edit', edit_post_path(post), class:'label label-danger' %></td>
+      <td width="10"><%= link_to 'Edit', edit_post_path(post), class:'label label-warning' %></td>
 
       <% if current_user.present? %>
-        <td><%= link_to 'Destroy', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class:'label label-warning' %></td>
+        <td><%= link_to 'Destroy', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class:'label label-danger' %></td>
       <% else %>
-        <td><%= link_to 'Destroy', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class:'label label-warning' %></td>
+        <td><%= link_to 'Destroy', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class:'label label-danger' %></td>
       <% end %>
       
   <% if current_user.present? %>

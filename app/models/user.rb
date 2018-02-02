@@ -15,8 +15,7 @@ class User < ApplicationRecord
   belongs_to :state
   belongs_to :city
   
-  validates :contact, numericality: { only_integer: true }
-  validates :contact, length: { is: 10 }
+  validates :contact, numericality: {only_integer: true}, length: {is: 10}
 	validates :username, :name, :gender, :date_of_birth, presence: true
 	validates :username, uniqueness: {case_sensitive: false}
 

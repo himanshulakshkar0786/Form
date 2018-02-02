@@ -14,20 +14,38 @@
   <div style = "text-align: right; font-size: 17px;">
 
     <% if user_signed_in? %>
-        <% if current_user.image.present? %>
-            <%= image_tag current_user.image.url, size: "32x32", class: "img_circular", title: current_user.name %>
-        <% else %>
-            <% if current_user.gender == "female" %> 
-              <img src="/system/comments/images/000/000/007/images.png?1517403672" alt="female_user", height = "40", width = "40", title = "<%= current_user.name %>" >
-            <% else %>
-              <img src="/system/comments/images/000/000/006/images.png?1517403658" alt="male_user", height = "40", width = "40", title = "<%= current_user.name %>" >
-            <% end %>
-        <% end %>
 
-      Logged in as <strong><%= current_user.email %></strong>     
-      <%= link_to 'Edit profile', edit_user_registration_path,  class:'label label-default' %> |
-      <%= link_to "View Profile", current_user, class:'label label-success' %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class:'label label-danger' %>
+    Logged in as <strong><%= current_user.email %></strong>
+
+    <span class="dropdown">   
+          <% if current_user.image.present? %>
+            <%= image_tag current_user.image.url, size: "32x32", class: "img_circular" %>
+          <% else %>
+            <% if current_user.gender == "female" %> 
+              <img src="/system/comments/images/000/000/007/images.png?1517403672" alt="female_user", height = "40", width = "40" >
+            <% else %>
+              <img src="/system/comments/images/000/000/006/images.png?1517403658" alt="male_user", height = "40", width = "40" >
+            <% end %>
+          <% end %>
+
+      <span class="dropdown-content", id = "bg", style = "text-align: left">
+
+          <% if current_user.image.present? %>
+            <%= image_tag current_user.image.url, size: "150x150",
+             title: current_user.name %>
+          <% else %>
+            <% if current_user.gender == "female" %> 
+              <img src="/system/comments/images/000/000/007/images.png?1517403672" alt="female_user", height = "150", width = "150", title = "<%= current_user.name %>" >
+            <% else %>
+              <img src="/system/comments/images/000/000/006/images.png?1517403658" alt="male_user", height = "150", width = "150", title = "<%= current_user.name %>", class = "img_circular" >
+            <% end %>
+          <% end %>
+
+          <%= link_to 'Edit profile', edit_user_registration_path,  class:'label label-default' %>
+            <%= link_to "View Profile", current_user, class:'label label-success' %>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class:'label label-danger' %>
+      </span>
+    </span>
 
     <% else %>
 
