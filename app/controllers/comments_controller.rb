@@ -23,10 +23,15 @@ class CommentsController < ApplicationController
     end
 
     if params[:comment_id]
+      @post = Post.find(comment_params[:post_id])
       @comment = Comment.find(params[:comment_id]).comments.new(comment_params.merge(user: current_user))
       if @comment.save
-        redirect_to post_path(comment_params[:post_id])
-        flash[:success] = "Comment created!"
+
+        respond_to do |f|
+          f.html{ redirect_to post_path(comment_params[:post_id]) }
+          f.js
+        end
+        
       else
         redirect_to post_path(comment_params[:post_id])
         flash[:error] = @comment.errors.full_messages.join(",")
@@ -50,7 +55,7 @@ class CommentsController < ApplicationController
     if @comment.destroy
       flash[:success] = "Comment deleted!"
     else
-      flash[:error] = "comment can not be deleted!"
+      flash[:error] = "comment can't deleted!"
     end
       redirect_to post_path(@post)
   end

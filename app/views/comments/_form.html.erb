@@ -1,4 +1,4 @@
-<%= form_for([@post, @comment])  do |f| %>
+<%= form_for([@post, @comment]) do |f| %>
 	
 	<% if @comment.errors.any? %>
 			<ul>
@@ -9,7 +9,7 @@
 	<% end %>
 <p>    
     <%= f.label :Description %><br>
-	<%= f.text_area :description, placeholder: 'Add a comment...'%><br>
+	<%= f.text_area :description, size: '20x3', placeholder: 'Add a comment...', autofocus: true, required: true %><br>
 </p>
 
 <p>

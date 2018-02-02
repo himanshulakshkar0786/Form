@@ -1,4 +1,15 @@
-<%= image_tag @user.image.url(:medium) %>
+<% if @user.image.present? %>
+  <%= image_tag @user.image.url, class: "img_circular", size: "200x180" %>
+
+<% else %>
+
+  <% if @user.gender == "female" %> 
+      <img src="/system/comments/images/000/000/007/images.png?1517403672" alt="female_user", height = "200", width = "200">
+  <% else %>
+      <img src="/system/comments/images/000/000/006/images.png?1517403658" alt="male_user", height = "200", width = "200">
+  <% end %>
+
+<% end %>
 
 <p>
   <b>Name:</b>
@@ -8,6 +19,11 @@
 <p>
   <b>Date of birth:</b>
   <%= @user.date_of_birth %>
+</p>
+
+<p>
+  <b>Gender:</b>
+  <%= @user.gender %>
 </p>
 
 <p>

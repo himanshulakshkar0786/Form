@@ -13,3 +13,43 @@
  *= require_tree .
  *= require_self
  */
+
+#error {
+  color: red;
+}
+
+.flash_error {
+  color: red;
+}
+
+.flash_success {
+  color: green;
+}
+
+.blue {
+  color: blue;
+}
+
+.black {
+  color: black;
+}
+
+.img_circular {
+  border-radius: 50%;
+}
+
+hr {
+ display: block;
+ position: relative;
+ padding: 0;
+ margin: 8px auto;
+ height: 0;
+ width: 100%;
+ max-height: 0;
+ font-size: 1px;
+ line-height: 0;
+ clear: both;
+ border: none;
+ border-top: 1px solid #aaaaaa;
+ border-bottom: 1px solid #ffffff;
+}

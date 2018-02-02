@@ -1,5 +1,4 @@
-<br>
-<p>
+<br><p> 
   <strong>Description:</strong>
   <%= comment.description %>
 </p>
@@ -12,31 +11,41 @@
 <% if comment.image.present? %>
   <%= image_tag comment.image.url(:medium) %>
 <% else %>
+
 <% end %>
 
 <% if comment.commentable_type == "Post" %>
 
-  <br><%= link_to "Edit", edit_post_comment_path(@post, comment), class:'label label-danger' %> |
-  <%= link_to "Destroy", [@post, comment], method: :delete, 
-	data: { confirm: 'Are you sure?' }, class:'label label-warning' %><br><br>
+    <br><%= link_to "Edit", edit_post_comment_path(@post, comment), class:'label label-danger' %> |
+    <%= link_to "Destroy", [@post, comment], method: :delete, 
+  	data: { confirm: 'Are you sure?' }, class:'label label-warning' %><br><br>
 
 <% else %>
 
-  <% if current_user.present? %>
-  <% if comment.user_id == current_user.id %>
-    <br><%= link_to "Edit", edit_post_comment_path(@post, comment), class:'label label-danger' %> |
-    <%= link_to "Destroy", [@post, comment], method: :delete, 
-  data: { confirm: 'Are you sure?' }, class:'label label-warning' %><br><br>
-  <% else %>
-  <% end %>
-  <% end %>
+    <% if current_user.present? %>
+        <% if comment.user_id == current_user.id %>
+            <br><%= link_to "Edit", edit_post_comment_path(@post, comment), class:'label label-danger' %> |
+            <%= link_to "Destroy", [@post, comment], method: :delete, 
+            data: { confirm: 'Are you sure?' }, class:'label label-warning' %><br><br>
+        <% else %>
+
+        <% end %>
+    <% end %>
 
 <% end %>
 
-<%= form_for [comment, Comment.new] do |f| %>
-      <%= f.text_area :description, placeholder: "Add a reply..." %><br/>
-      <%= hidden_field_tag "comment[post_id]", "#{@post.id}" %>
-      <%= f.submit "Reply" %>
+<% if current_user.present? %>
+    <%= form_for [comment, Comment.new], remote: true do |f| %>
+          <%= f.text_area :description, placeholder: "Add a reply...", required: true %><br/>
+          <%= hidden_field_tag "comment[post_id]", "#{@post.id}" %>
+          <%= f.submit "Reply" %>
+    <% end %>
+<% else %>
+    <%= form_for [comment, Comment.new] do |f| %>
+          <%= f.text_area :description, placeholder: "Add a reply..." %><br/>
+          <%= hidden_field_tag "comment[post_id]", "#{@post.id}" %>
+          <%= f.submit "Reply" %>
+    <% end %>
 <% end %>
 
 <ul>

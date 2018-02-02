@@ -25,21 +25,21 @@
 
     <% if current_user.voted_up_on? post %>
       <td><%= link_to like_post_path(post, url: "my_posts"), method: :put do %>
-        <class style = "color:blue;"><span class="glyphicon glyphicon-thumbs-up"></span></class> <% end %>
+        <span class="glyphicon glyphicon-thumbs-up blue"></span><% end %>
         <%= post.get_upvotes.size %></td>
     <% else %>
       <td><%= link_to like_post_path(post, url: "my_posts"), method: :put do %>
-        <class style = "color:black;"><span class="glyphicon glyphicon-thumbs-up"></span></class> <% end %>
+        <span class="glyphicon glyphicon-thumbs-up black"></span><% end %>
         <%= post.get_upvotes.size %></td>
     <% end %>
 
     <% if current_user.voted_down_on? post %>
       <td><%= link_to dislike_post_path(post, url: "my_posts"), method: :put do %>
-        <class style = "color:blue;"><span class="glyphicon glyphicon-thumbs-down"></span></class> <% end %>
+        <span class="glyphicon glyphicon-thumbs-down blue"></span><% end %>
         <%= post.get_downvotes.size %></td>
     <% else %>
       <td><%= link_to dislike_post_path(post, url: "my_posts"), method: :put do %>
-        <class style = "color:black;"><span class="glyphicon glyphicon-thumbs-down"></span></class> <% end %>
+        <span class="glyphicon glyphicon-thumbs-down black"></span><% end %>
         <%= post.get_downvotes.size %></td>
     <% end %>
 
@@ -58,3 +58,5 @@
     </tr>
   <% end %>
 </table>
+
+<%= link_to "Back", user_path, class:'label label-info' %>

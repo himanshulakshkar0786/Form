@@ -13,3 +13,7 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+
+setTimeout(function(){
+	$(".flash_success").hide();
+}, 3000);

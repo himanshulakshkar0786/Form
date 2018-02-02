@@ -1,4 +1,4 @@
-<%= form_for @post, remote: true, html: { multipart: true } do |f| %>
+<%= form_for @post do |f| %>
 
 <% if @post.errors.any? %>
 		<ul>
@@ -9,23 +9,36 @@
 <% end %>
 
 <p>
-	<%= f.label :title %><br>
-	<%= f.text_field :title %>
+	<%= f.label :Title %><br>
+	<%= f.text_field :title, autofocus: true, required: true %>
 </p>
 
 <p>
-	<%= f.label :description %><br>
-	<%= f.text_area :description %>
+	<%= f.label :Description %><br>
+	<%= f.text_area :description, size: "30x5", required: true %>
 </p>
 
 <p>
-	<%= f.label :category_id %><br>
-	<%= f.select :category_id, Category.pluck(:name, :id), include_blank: true %>
+	<%= f.label :Category %><br>
+	<%= f.select :category_id, Category.pluck(:name, :id),
+	{include_blank: "Choose a category"}, required: true %>
 </p>
 
 <p>
-	<%= f.label :image %><br/>
-	<%= f.file_field :image %>
+	<%= f.label :"Upload file" %><br>
+	<%= f.select :type, ['Image', "Audio", "Video"], include_blank: "Choose file" %>
+</p>
+
+<p id = "image_field", style = "display:none;">
+	<b>Image</b><%= f.file_field :image %>
+</p>
+
+<p id = "audio_field", style = "display:none;">
+	<b>Audio</b><%= f.file_field :audio %>
+</p>
+
+<p id = "video_field", style = "display:none;">
+	<b>Video</b><%= f.file_field :video %>
 </p>
 
 <p>
@@ -33,3 +46,19 @@
 </p>
 
 <% end %>
+
+<script type="text/javascript">
+	var dropdown = document.getElementById("post_type");
+	dropdown.onchange = function(event)
+	{
+		if(dropdown.value=="Image"){
+			//$("#aud, #vdo").hide()
+			$("#image_field").show()}
+		if(dropdown.value=="Audio"){
+			//$("#img, #vdo").hide()
+			$("#audio_field").show()}
+		if(dropdown.value=="Video"){
+			//$("#aud, #img").hide()
+			$("#video_field").show()}
+	}
+</script>

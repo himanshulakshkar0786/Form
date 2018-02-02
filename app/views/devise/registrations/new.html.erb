@@ -1,70 +1,134 @@
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <span style = "color:red;"><%= devise_error_messages! %></span>
 
-  <div class="field">
+  <p>
     <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div>
+    <%= f.text_field :name, autofocus: true, required: true %>
+  </p>
 
-  <div class="field">
+  <p>
     <%= f.label :date_of_birth %><br />
-    <%= f.date_select :date_of_birth, start_year: 1980, end_year: 2020, include_blank: true, autofocus: true %>
-  </div>
+    <%= f.date_select :date_of_birth, start_year: 1980, end_year: 2020,
+    order: [:day, :month, :year], prompt: { day: 'Day', month: 'Month', year: 'Year' } %>
+  </p>
 
-  <div class="field">
+  <p>
+    <%= f.label :Gender %>
+    <%= f.radio_button :gender, "male" %>
+    <%= f.label :gender, value: "male" %>
+    <%= f.radio_button :gender, "female" %>
+    <%= f.label :gender, value: "female" %>
+  </p>
+
+  <p>
     <%= f.label :country_id %><br />
-    <%= f.collection_select :country_id, Country.order(:name), :id, :name, include_blank: true %>
-  </div>
+    <%= f.collection_select :country_id, Country.order(:name), :id, :name, {include_blank: true}, required: true %>
+  </p>
   
 
-  <div class="field">
+  <p id = "user_state_id" style = "display:none;">
     <%= f.label :state_id %><br />
-    <%= f.grouped_collection_select :state_id, Country.order(:name), :states, :name, :id, :name, include_blank: true %>
-  </div>
+    <%= f.grouped_collection_select :state_id, Country.order(:name), :states, :name, :id, :name, {include_blank: true}, required: true %>
+  </p>
 
-  <div class="field">
+  <p id = "user_city_id", style = "display:none;">
     <%= f.label :city_id %><br />
-    <%= f.grouped_collection_select :city_id, State.order(:name), :cities, :name, :id, :name, include_blank: true %>
-  </div>
+    <%= f.grouped_collection_select :city_id, State.order(:name), :cities, :name, :id, :name, {include_blank: true}, required: true %>
+  </p>
 
-  <div class="field">
+  <p>
     <%= f.label :contact %><br />
-    <%= f.text_field :contact, autofocus: true %>
-  </div>
+    <%= f.text_field :contact, required: true %>
+  </p>
 
-  <div class="field">
+  <p>
     <%= f.label :image %><br />
-    <%= f.file_field :image, autofocus: true %>
-  </div>
+    <%= f.file_field :image %>
+  </p>
 
-  <div class="field">
+  <p>
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+    <%= f.email_field :email, required: true %>
+  </p>
 
-  <div class="field">
+  <p>
     <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true %>
-  </div>
+    <%= f.text_field :username, required: true %>
+  </p>
 
-  <div class="field">
+  <p>
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+    <%= f.password_field :password, autocomplete: "off", required: true %>
+  </p>
 
-  <div class="field">
+  <p>
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+    <%= f.password_field :password_confirmation, autocomplete: "off", required: true %>
+  </p>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+  <p>
+    <%= f.submit class:"btn btn-sm btn-primary" %>
+  </p>
+  
 <% end %>
 
-<%= render "devise/shared/links" %>
+
+<script type="text/javascript">
+  var country = document.getElementById("user_country_id");
+  var state = document.getElementById("user_state_id");
+
+  country.onchange = function(event)
+    {
+        $("#user_state_id").show();
+    }
+  state.onchange = function(event)
+    {
+        $("#user_city_id").show();
+    }
+</script>
+
+
+<!-- <script>
+
+$(function() {
+  $('#user_state_id').parent().hide();
+  $('#user_city_id').parent().hide();
+
+  $('#user_country_id').change(function() {
+    var country, states1, state_options;
+    states1 = $('#user_state_id').html();
+    country = $('#user_country_id :selected').text();
+    state_options = $(states1).filter("optgroup[label=" + country + "]").html();
+    
+      if (state_options) {1996-07-27
+        $('#user_state_id').html(state_options);
+        $('#user_state_id').parent().show();
+      }
+      else {
+        $('#user_state_id').empty();
+        $('#user_state_id').parent().hide();
+      }
+  });
+
+  $(document).on("click","#user_state_id",function() {
+    var states2, city_options;
+    cities = $('#user_city_id').html();       
+    states2 = $('#user_state_id :selected').text();
+    city_options = $(cities).filter("optgroup[label=" + states2 + "]").html();
+
+      if(city_options){
+        $('#user_city_id').html(city_options);
+         $('#user_city_id').parent().show();   
+      }
+      else {
+        $('#user_city_id').empty();
+        $('#user_city_id').parent().hide();  
+      }
+  });
+});
+</script> -->

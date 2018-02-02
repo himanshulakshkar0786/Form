@@ -49,26 +49,35 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
-    redirect_to root_path
-    flash[:success] = "Post deleted!"
+    if @post.destroy
+      redirect_to root_path
+      flash[:success] = "Post deleted!"
+    else
+      redirect_to root_path
+      flash[:success] = "Post can't deleted!"
+    end
   end
 
   private
 
   def load_resources
     @post = Post.find(params[:id])
-    #@comment = Comment.new
   end
 
-    def ensure_current_user
-      if current_user.id != @post.user_id
+  def ensure_current_user
+    if current_user.id != @post.user_id
+      url = params[:url]
+      if url == "show"
+        redirect_to post_path(@post)
+        flash[:error] = "You are not authorized to edit and delete other user's post."
+      else
         redirect_to root_path
         flash[:error] = "You are not authorized to edit and delete other user's post."
       end
     end
+  end
 
-    def post_params
-      params.require(:post).permit(:title, :description, :category_id, :image)
-    end
+  def post_params
+    params.require(:post).permit(:title, :description, :category_id, :image, :audio, :video, :type)
+  end
 end

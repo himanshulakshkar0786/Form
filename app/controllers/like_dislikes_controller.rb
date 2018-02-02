@@ -3,7 +3,7 @@ class LikeDislikesController < ApplicationController
   before_action :authenticate_user!
 
   def like
-  	@post = Post.find(params[:id])   
+  	@post = Post.find(params[:id])
     url = params[:url]
     if url == "show"
 

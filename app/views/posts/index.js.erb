@@ -1,1 +1,13 @@
-$("#posts").hide();
+<% if @posts.count == 0 %>
+	$("#return_table").html("<%= j render("table") %>").prepend(
+	"<h5>No record found!</h5>");
+<% else %>
+	$("#return_table").html("<%= j render("table") %>").prepend(
+	"<h5><%= pluralize(@posts.count, 'record') %> found!</h5>");
+<% end %>
+
+$("h5").css("color", "green");
+
+setTimeout(function(){
+    $("h5").remove();
+}, 3000);
