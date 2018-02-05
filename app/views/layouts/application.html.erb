@@ -32,14 +32,14 @@
 
           <% if current_user.image.present? %>
             <%= image_tag current_user.image.url, size: "150x150",
-             title: current_user.name %>
+             title: current_user.name, class: 'img_circular' %>
           <% else %>
             <% if current_user.gender == "female" %> 
               <img src="/system/comments/images/000/000/007/f_user.png" alt="female_user", height = "150", width = "150", title = "<%= current_user.name %>" >
             <% else %>
               <img src="/system/comments/images/000/000/006/m_user.png" alt="male_user", height = "150", width = "150", title = "<%= current_user.name %>", class = "img_circular" >
             <% end %>
-          <% end %>
+          <% end %><br><br>
 
           <%= link_to 'Edit profile', edit_user_registration_path,  class:'label label-default' %>
             <%= link_to "View Profile", current_user, class:'label label-success' %>
