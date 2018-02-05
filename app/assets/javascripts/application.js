@@ -16,4 +16,4 @@
 
 setTimeout(function(){
 	$(".flash_success").hide();
-}, 3000);
+}, 5000);

@@ -9,7 +9,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body style = "padding:10px;">
+  <body id = "bg_image", style = "padding:10px;">
 
   <div style = "text-align: right; font-size: 17px;">
 
@@ -22,22 +22,22 @@
             <%= image_tag current_user.image.url, size: "32x32", class: "img_circular" %>
           <% else %>
             <% if current_user.gender == "female" %> 
-              <img src="/system/comments/images/000/000/007/images.png?1517403672" alt="female_user", height = "40", width = "40" >
+              <img src="/system/comments/images/000/000/007/f_user.png" alt="female_user", height = "32", width = "32", class = "img_circular" >
             <% else %>
-              <img src="/system/comments/images/000/000/006/images.png?1517403658" alt="male_user", height = "40", width = "40" >
+              <img src="/system/comments/images/000/000/006/m_user.png" alt="male_user", height = "32", width = "32", class = "img_circular" >
             <% end %>
           <% end %>
 
-      <span class="dropdown-content", id = "bg", style = "text-align: left">
+      <span class="dropdown-content", id = "bg", style = "text-align: right">
 
           <% if current_user.image.present? %>
             <%= image_tag current_user.image.url, size: "150x150",
              title: current_user.name %>
           <% else %>
             <% if current_user.gender == "female" %> 
-              <img src="/system/comments/images/000/000/007/images.png?1517403672" alt="female_user", height = "150", width = "150", title = "<%= current_user.name %>" >
+              <img src="/system/comments/images/000/000/007/f_user.png" alt="female_user", height = "150", width = "150", title = "<%= current_user.name %>" >
             <% else %>
-              <img src="/system/comments/images/000/000/006/images.png?1517403658" alt="male_user", height = "150", width = "150", title = "<%= current_user.name %>", class = "img_circular" >
+              <img src="/system/comments/images/000/000/006/m_user.png" alt="male_user", height = "150", width = "150", title = "<%= current_user.name %>", class = "img_circular" >
             <% end %>
           <% end %>
 

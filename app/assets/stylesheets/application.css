@@ -23,7 +23,7 @@
 }
 
 .flash_success {
-  color: green;
+  color: brown;
 }
 
 .blue {
@@ -76,5 +76,9 @@ hr {
 }
 
 #bg {
-  background-image: url("/system/comments/images/000/000/003/milky-way-2695569_960_720.jpg?1517575686");
+  background-image: url("/system/comments/images/000/000/003/background.jpg");
+}
+
+#bg_image {
+ background-image: url("/system/users/images/000/000/009/img.jpg"); 
 }
