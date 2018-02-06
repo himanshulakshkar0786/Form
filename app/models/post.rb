@@ -4,7 +4,7 @@ class Post < ApplicationRecord
 
 	acts_as_votable
 
-	has_attached_file :image, styles: { large: "600*600>", medium: "300*300>", small: "100*100>"}
+	has_attached_file :image, styles: { large: "600*600>", medium: "200*200>", small: "100*100>"}
   	validates_attachment_content_type :image, content_type: ["image/jpeg", "image/gif", "image/png"]
 
 	has_attached_file :audio
