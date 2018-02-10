@@ -19,7 +19,7 @@ class PostsController < ApplicationController
           Post.joins(:user).where('title like ? OR name Like ?', "%#{params[:term]}%", "%#{params[:term]}%")
       
       else
-        Post.all
+        Post.all.order(created_at: :desc).page(params[:page]).per(7)
       end
   end
 

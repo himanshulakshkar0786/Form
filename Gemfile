@@ -59,3 +59,4 @@ gem 'acts_as_votable', '~> 0.11.1'
 gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
+gem 'kaminari'

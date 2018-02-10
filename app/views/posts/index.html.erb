@@ -14,6 +14,8 @@
   <%= render 'table' %>
 </div>
 
+<h4 style = "text-align:right;"><%= paginate @posts %></h4>
+
 <script>
 	setTimeout(function(){
 		$(".flash_error").hide();

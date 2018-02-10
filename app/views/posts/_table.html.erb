@@ -8,7 +8,7 @@
     <th>Dislikes</th>
   </tr>
 
-  <% @posts.order(created_at: :desc).each do |post| %>
+  <% @posts.each do |post| %>
     <tr class = "warning">
       <td><%= post.title %></td>
 
